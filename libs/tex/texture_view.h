@@ -19,6 +19,7 @@
 #include <mve/image.h>
 #include <mve/image_io.h>
 #include <mve/image_tools.h>
+#include <util/file_system.h>
 
 #include "tri.h"
 #include "settings.h"
@@ -51,6 +52,7 @@ class TextureView {
         int height;
         std::string image_file;
         mve::ImageBase::Ptr image;
+        mve::ByteImage::Ptr image_mask;
         mve::ImageBase::Ptr gradient_magnitude;
         std::vector<bool> validity_mask;
         bool grayscale;

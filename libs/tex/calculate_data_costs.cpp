@@ -205,7 +205,7 @@ calculate_face_projection_infos(mve::TriangleMesh::ConstPtr mesh,
                     if (viewing_angle < 0.0f || viewing_direction.dot(view_to_face_vec) < 0.0f)
                         continue;
 
-                    if (std::acos(viewing_angle) > MATH_DEG2RAD(settings.nadir_mode ? 89.0f : 75.0f))
+                    if (std::acos(viewing_angle) > MATH_DEG2RAD(settings.nadir_mode ? 90.0f : 75.0f))
                         continue;
                 }
 

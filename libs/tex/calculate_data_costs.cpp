@@ -205,7 +205,7 @@ calculate_face_projection_infos(mve::TriangleMesh::ConstPtr mesh,
                     if (viewing_angle < 0.0f || viewing_direction.dot(view_to_face_vec) < 0.0f)
                         continue;
 
-                    if (std::acos(viewing_angle) > MATH_DEG2RAD(75.0f))
+                    if (std::acos(viewing_angle) > MATH_DEG2RAD(settings.nadir_mode ? 89.0f : 75.0f))
                         continue;
                 }
 
@@ -249,10 +249,10 @@ calculate_face_projection_infos(mve::TriangleMesh::ConstPtr mesh,
 
                 if (info.quality == 0.0) continue;
 
-                if (vertical){
-                    /* Choose a view that is closest to the face
-                       instead of the GMI/AREA quality score. */ 
-                    info.quality = 0.0001f + settings.nadir_weight / (face_center - view_pos).square_norm();
+                if (settings.nadir_mode){
+                    float m1 = up.dot(face_to_view_vec);
+                    float m2 = up.dot(viewing_direction);
+                    info.quality = (m1*m1)*(m1*m1)*(m2*m2);
                 }
 
                 /* Change color space. */
@@ -318,7 +318,6 @@ postprocess_face_infos(Settings const & settings,
     for (std::size_t i = 0; i < face_projection_infos->size(); ++i)
         for (FaceProjectionInfo const & info : face_projection_infos->at(i))
             hist_qualities.add_value(info.quality);
-
     float percentile = hist_qualities.get_approx_percentile(0.995f);
 
     /* Calculate the costs. */

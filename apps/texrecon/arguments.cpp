@@ -168,6 +168,11 @@ Arguments parse_args(int argc, char **argv) {
         }
     }
 
+    if (conf.settings.nadir_mode){
+        // Always set to area
+        conf.settings.data_term = tex::DataTerm::DATA_TERM_AREA;
+    }
+
     return conf;
 }
 

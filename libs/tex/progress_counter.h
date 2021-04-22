@@ -81,7 +81,11 @@ ProgressCounter::progress(void) {
         }
 
         #pragma omp critical(progress_counter_progress)
+#if defined(_WIN32)
+        std::cout << ss.rdbuf() << std::flush;
+#else
         tty << ss.rdbuf() << std::flush;
+#endif
     }
 }
 

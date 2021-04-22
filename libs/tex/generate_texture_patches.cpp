@@ -40,7 +40,11 @@ T clamp(T const & v, T const & lo, T const & hi) {
 void merge_vertex_projection_infos(std::vector<std::vector<VertexProjectionInfo> > * vertex_projection_infos) {
     /* Merge vertex infos within the same texture patch. */
     #pragma omp parallel for
+#if !defined(_MSC_VER)
     for (std::size_t i = 0; i < vertex_projection_infos->size(); ++i) {
+#else
+    for (std::int64_t i = 0; i < vertex_projection_infos->size(); ++i) {
+#endif
         std::vector<VertexProjectionInfo> & infos = vertex_projection_infos->at(i);
 
         std::map<std::size_t, VertexProjectionInfo> info_map;
@@ -473,7 +477,11 @@ generate_texture_patches(UniGraph const & graph, mve::TriangleMesh::ConstPtr mes
 
     std::cout << "\tRunning... " << std::flush;
     #pragma omp parallel for schedule(dynamic)
+#if !defined(_MSC_VER)
     for (std::size_t i = 0; i < texture_views->size(); ++i) {
+#else
+    for (std::int64_t i = 0; i < texture_views->size(); ++i) {
+#endif
 
         std::vector<std::vector<std::size_t> > subgraphs;
         int const label = i + 1;
@@ -549,7 +557,11 @@ generate_texture_patches(UniGraph const & graph, mve::TriangleMesh::ConstPtr mes
         graph.get_subgraphs(0, &subgraphs);
 
         #pragma omp parallel for schedule(dynamic)
+#if !defined(_MSC_VER)
         for (std::size_t i = 0; i < subgraphs.size(); ++i) {
+#else
+        for (std::int64_t i = 0; i < subgraphs.size(); ++i) {
+#endif
             std::vector<std::size_t> const & subgraph = subgraphs[i];
 
             bool success = false;

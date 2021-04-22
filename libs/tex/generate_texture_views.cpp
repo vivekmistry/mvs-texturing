@@ -110,7 +110,11 @@ from_images_and_camera_files(std::string const & path,
 
     ProgressCounter view_counter("\tLoading", files.size() / 2);
     #pragma omp parallel for
+#if !defined(_MSC_VER)
     for (std::size_t i = 0; i < files.size(); i += 2) {
+#else
+    for (std::int64_t i = 0; i < files.size(); i += 2) {
+#endif
         view_counter.progress<SIMPLE>();
         const std::string cam_file = files[i];
         const std::string img_file = files[i + 1];
@@ -185,7 +189,11 @@ from_nvm_scene(std::string const & nvm_file,
 
     ProgressCounter view_counter("\tLoading", cameras.size());
     #pragma omp parallel for
+#if !defined(_MSC_VER)
     for (std::size_t i = 0; i < cameras.size(); ++i) {
+#else
+    for (std::int64_t i = 0; i < cameras.size(); ++i) {
+#endif
         view_counter.progress<SIMPLE>();
         mve::CameraInfo& mve_cam = cameras[i];
         mve::NVMCameraInfo const& nvm_cam = nvm_cams[i];

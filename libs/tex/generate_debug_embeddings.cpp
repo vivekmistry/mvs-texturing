@@ -73,7 +73,11 @@ generate_debug_embeddings(std::vector<TextureView> * texture_views) {
     generate_debug_colors(colors);
 
     #pragma omp parallel for
+#if !defined(_MSC_VER)
     for (std::size_t i = 0; i < texture_views->size(); ++i) {
+#else
+    for (std::int64_t i = 0; i < texture_views->size(); ++i) {
+#endif
         math::Vec4f float_color =  colors[i % colors.size()];
 
         TextureView * texture_view = &(texture_views->at(i));

@@ -32,6 +32,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfpmath=sse -funroll-loops")
 endif()
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+set(MVE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../mve" CACHE PATH "Path to MVE root")
+find_package(MVE REQUIRED)
 find_package(PNG REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(TIFF REQUIRED)
@@ -44,7 +48,7 @@ endif()
 add_subdirectory(elibs)
 include_directories(SYSTEM
     ${CMAKE_SOURCE_DIR}/elibs/rayint/libs
-    ${CMAKE_SOURCE_DIR}/elibs/mve/libs
+    ${MVE_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/elibs/eigen
     ${CMAKE_SOURCE_DIR}/elibs/mapmap/
     ${CMAKE_SOURCE_DIR}/elibs/mapmap/mapmap
@@ -53,11 +57,6 @@ include_directories(SYSTEM
 
 include_directories(
     libs
-)
-
-link_directories(
-    ${CMAKE_SOURCE_DIR}/elibs/mve/libs/mve
-    ${CMAKE_SOURCE_DIR}/elibs/mve/libs/util
 )
 
 add_subdirectory(libs)

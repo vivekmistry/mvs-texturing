@@ -52,11 +52,7 @@ int main(int argc, char **argv) {
     if (!util::fs::dir_exists(tmp_dir.c_str())) {
         util::fs::mkdir(tmp_dir.c_str());
     } else {
-        std::cerr
-            << "Temporary directory \"tmp\" exists within the destination directory.\n"
-            << "Cannot continue since this directory would be delete in the end.\n"
-            << std::endl;
-        std::exit(EXIT_FAILURE);
+        std::cout << "Careful! Temporary directory \"tmp\" exists within the destination directory." << std::endl;
     }
 
     // Set the number of threads to use.

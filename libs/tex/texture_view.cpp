@@ -51,7 +51,12 @@ TextureView::load_image(void) {
     }
 
     if (image == NULL){
-        image = mve::image::load_tiff_float_file(image_file);
+        try {
+            image = mve::image::load_tiff_float_file(image_file);
+        }catch (const std::exception& e) {
+            std::cerr << "Failed to load " << image_file << ": " << e.what();
+            exit(1);
+        }
     }
 
     // Assure images have always at least 3 channels

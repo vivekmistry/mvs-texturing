@@ -210,7 +210,12 @@ from_nvm_scene(std::string const & nvm_file,
         }
 
         if (image == nullptr){
-            image = mve::image::load_tiff_float_file(nvm_cam.filename);
+            try{
+                image = mve::image::load_tiff_float_file(nvm_cam.filename);
+            }catch(const std::exception &e){
+                std::cerr << "Failed to load " << nvm_cam.filename << ": " << e.what();
+                exit(1);
+            }
         }
 
         int const maxdim = std::max(image->width(), image->height());

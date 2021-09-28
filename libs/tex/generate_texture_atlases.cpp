@@ -35,6 +35,8 @@ TEX_NAMESPACE_BEGIN
 unsigned int
 calculate_texture_size(std::list<TexturePatch::ConstPtr> const & texture_patches) {
     unsigned int size = MAX_TEXTURE_SIZE;
+    cout << "Hello World!";
+    cout << size;
 
     while (true) {
         unsigned int total_area = 0;
@@ -45,6 +47,7 @@ calculate_texture_size(std::list<TexturePatch::ConstPtr> const & texture_patches
         for (TexturePatch::ConstPtr texture_patch : texture_patches) {
             unsigned int width = texture_patch->get_width() + 2 * padding;
             unsigned int height = texture_patch->get_height() + 2 * padding;
+            cout >> height;
 
             max_width = std::max(max_width, width);
             max_height = std::max(max_height, height);

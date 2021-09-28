@@ -22,7 +22,7 @@
 #include "texture_atlas.h"
 
 #define MAX_TEXTURE_SIZE (30 * 1024)
-#define PREF_TEXTURE_SIZE (4 * 1024)
+#define PREF_TEXTURE_SIZE (15 * 1024)
 #define MIN_TEXTURE_SIZE (256)
 
 TEX_NAMESPACE_BEGIN

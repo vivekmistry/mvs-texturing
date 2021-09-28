@@ -22,7 +22,7 @@
 #include "texture_atlas.h"
 
 #define MAX_TEXTURE_SIZE (25 * 1024)
-#define PREF_TEXTURE_SIZE (15 * 1024)
+#define PREF_TEXTURE_SIZE (4 * 1024)
 #define MIN_TEXTURE_SIZE (256)
 
 TEX_NAMESPACE_BEGIN
@@ -45,7 +45,6 @@ calculate_texture_size(std::list<TexturePatch::ConstPtr> const & texture_patches
         for (TexturePatch::ConstPtr texture_patch : texture_patches) {
             unsigned int width = texture_patch->get_width() + 2 * padding;
             unsigned int height = texture_patch->get_height() + 2 * padding;
-            cout >> height;
 
             max_width = std::max(max_width, width);
             max_height = std::max(max_height, height);
@@ -93,9 +92,10 @@ bool comp(TexturePatch::ConstPtr first, TexturePatch::ConstPtr second) {
 
 void
 generate_texture_atlases(std::vector<TexturePatch::Ptr> * orig_texture_patches,
-    Settings const & settings, std::vector<TextureAtlas::Ptr> * texture_atlases) {
+    Settings const & settings, std::vector<TextureAtlas::Ptr> * texture_atlases, mve::ImageType type, bool grayscale) {
 
     std::list<TexturePatch::ConstPtr> texture_patches;
+
     while (!orig_texture_patches->empty()) {
         TexturePatch::Ptr texture_patch = orig_texture_patches->back();
         orig_texture_patches->pop_back();
@@ -125,8 +125,9 @@ generate_texture_atlases(std::vector<TexturePatch::Ptr> * orig_texture_patches,
     while (!texture_patches.empty()) {
         unsigned int texture_size = calculate_texture_size(texture_patches);
 
-        texture_atlases->push_back(TextureAtlas::create(texture_size));
+        texture_atlases->push_back(TextureAtlas::create(texture_size, type, grayscale));
         TextureAtlas::Ptr texture_atlas = texture_atlases->back();
+
         /* Try to insert each of the texture patches into the texture atlas. */
         std::list<TexturePatch::ConstPtr>::iterator it = texture_patches.begin();
         for (; it != texture_patches.end();) {

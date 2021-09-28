@@ -21,7 +21,7 @@
 #include "texture_patch.h"
 #include "texture_atlas.h"
 
-#define MAX_TEXTURE_SIZE (80 * 1024)
+#define MAX_TEXTURE_SIZE (25 * 1024)
 #define PREF_TEXTURE_SIZE (4 * 1024)
 #define MIN_TEXTURE_SIZE (256)
 
@@ -123,6 +123,7 @@ generate_texture_atlases(std::vector<TexturePatch::Ptr> * orig_texture_patches,
 
     while (!texture_patches.empty()) {
         unsigned int texture_size = calculate_texture_size(texture_patches);
+        std::cout << texture_size;
 
         texture_atlases->push_back(TextureAtlas::create(texture_size));
         TextureAtlas::Ptr texture_atlas = texture_atlases->back();

@@ -35,7 +35,6 @@ TEX_NAMESPACE_BEGIN
 unsigned int
 calculate_texture_size(std::list<TexturePatch::ConstPtr> const & texture_patches) {
     unsigned int size = MAX_TEXTURE_SIZE;
-    std::cout << "Hello World!";
 
     while (true) {
         unsigned int total_area = 0;
@@ -124,16 +123,12 @@ generate_texture_atlases(std::vector<TexturePatch::Ptr> * orig_texture_patches,
     {
 
     while (!texture_patches.empty()) {
-        std::cout << "Hello World!"; 
         unsigned int texture_size = calculate_texture_size(texture_patches);
-        std::cout << texture_size;
 
         texture_atlases->push_back(TextureAtlas::create(texture_size));
         TextureAtlas::Ptr texture_atlas = texture_atlases->back();
-        std::cout << "Hello World1!";
         /* Try to insert each of the texture patches into the texture atlas. */
         std::list<TexturePatch::ConstPtr>::iterator it = texture_patches.begin();
-        std::cout << "Hello World2!";
         for (; it != texture_patches.end();) {
             std::size_t done_patches = total_num_patches - remaining_patches;
             int precent = static_cast<float>(done_patches)

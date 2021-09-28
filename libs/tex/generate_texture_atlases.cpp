@@ -123,6 +123,7 @@ generate_texture_atlases(std::vector<TexturePatch::Ptr> * orig_texture_patches,
 
     while (!texture_patches.empty()) {
         unsigned int texture_size = calculate_texture_size(texture_patches);
+        std::cout << texture_size;
 
         texture_atlases->push_back(TextureAtlas::create(texture_size));
         TextureAtlas::Ptr texture_atlas = texture_atlases->back();

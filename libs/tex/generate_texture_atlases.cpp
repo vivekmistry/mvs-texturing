@@ -36,7 +36,7 @@ unsigned int
 calculate_texture_size(std::list<TexturePatch::ConstPtr> const & texture_patches) {
     unsigned int size = MAX_TEXTURE_SIZE;
     std::cout << "Hello World!" << std::flush;
-    std::cout << size << std::flush;;
+    std::cout << size << std::flush;
 
     while (true) {
         unsigned int total_area = 0;

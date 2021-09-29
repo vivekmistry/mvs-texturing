@@ -124,7 +124,7 @@ generate_texture_atlases(std::vector<TexturePatch::Ptr> * orig_texture_patches,
     while (!texture_patches.empty()) {
         unsigned int texture_size = calculate_texture_size(texture_patches);
      
-        std::cout << "\tSorting texture patches... " << texture_size <<"....." << MAX_TEXTURE_SIZE... << TextureAtlas::create(texture_size)...  << int(texture_atlases.size())...<<std::flush;
+        std::cout << "\tSorting texture patches... " << texture_size <<"....." << MAX_TEXTURE_SIZE... << int(texture_atlases.size())...<<std::flush;
         /* Improve the bin-packing algorithm efficiency by sorting texture patches
          * in descending order of size. */
         texture_patches.sort(comp);

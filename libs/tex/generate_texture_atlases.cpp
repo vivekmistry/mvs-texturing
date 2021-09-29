@@ -133,11 +133,31 @@ generate_texture_atlases(std::vector<TexturePatch::Ptr> * orig_texture_patches,
 
         texture_atlases->push_back(TextureAtlas::create(texture_size));
         TextureAtlas::Ptr texture_atlas = texture_atlases->back();
+     
+        std::cout << "\tSorting texture patches... " << texture_size <<"....." << MAX_TEXTURE_SIZE <<std::flush;
+        /* Improve the bin-packing algorithm efficiency by sorting texture patches
+         * in descending order of size. */
+        texture_patches.sort(comp);
+        std::cout << "...done." << std::endl;
 
         /* Try to insert each of the texture patches into the texture atlas. */
         std::list<TexturePatch::ConstPtr>::iterator it = texture_patches.begin();
+     
+        std::cout << "\tSorting texture patches... " << texture_size <<"....." << MAX_TEXTURE_SIZE <<std::flush;
+        /* Improve the bin-packing algorithm efficiency by sorting texture patches
+         * in descending order of size. */
+        texture_patches.sort(comp);
+        std::cout << "...done." << std::endl;
+     
         for (; it != texture_patches.end();) {
             std::size_t done_patches = total_num_patches - remaining_patches;
+         
+            std::cout << "\tSorting texture patches... " << texture_size <<"....." << MAX_TEXTURE_SIZE <<std::flush;
+            /* Improve the bin-packing algorithm efficiency by sorting texture patches
+            * in descending order of size. */
+            texture_patches.sort(comp);
+            std::cout << "...done." << std::endl;
+         
             int precent = static_cast<float>(done_patches)
                 / total_num_patches * 100.0f;
             if (total_num_patches > 100
